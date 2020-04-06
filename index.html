@@ -3,35 +3,18 @@
 <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
 <!-- we import arjs version without NFT but with marker + location based support -->
 <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+<script src="https://rawgit.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-click-events/events.js"></script>
+
 
 <body style="margin : 0px; overflow: hidden;">
   <a-scene embedded arjs>
-    <a-assets>
-      <audio id="sound" src="Trex.mp3" preload="auto"></audio>
-  </a-assets>
-    <a-marker preset='hiro'></a-marker>
-      <a-entity position="0 0 0" scale="0.05 0.05 0.05" soundhandler
-      gltf-model="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf" >
-    </a-entity>
+    <a-marker markerhandler emitevents="true" cursor="rayOrigin: mouse" id="animated-marker" preset='hiro'></a-marker>
+      <a-entity position="0 0 0" scale="0.05 0.05 0.05" id="animated-model" scale="2"
+      gltf-model="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"      </a-entity>
     </a-marker>
-    <a-entity sound="src: #sound" autoplay="false"></a-entity>
     <a-entity camera></a-entity>
   </a-scene>
-  <script>
-    AFRAME.registerComponent('soundhandler', {
-    tick: function () {
-           var entity = document.querySelector('[sound]');
-         if (document.querySelector('a-marker').object3D.visible == true) {
-            entity.components.sound.playSound();
-        } else {
-            entity.components.sound.pauseSound();
-        }
-
-     }
-});
-  </script>
+  <script src="index.js"></script>
 </body>
-
-
 
 </html>

@@ -1,29 +1,17 @@
-//To avoid playing from start if the marker flickers, not sure if needed, but it might be a failsafe when you have mutiple markers and want to make sure the first finishes before launching the second
-var playing = false;
-
-//HTML5 audio, will need user touch input to start on mobile
-var intro = new Audio("Trex.mp3");
-
-//Detect end of audio
-intro.addEventListener("ended", function() {
-	intro.currentTime = 0;
-	playing = false;
-});
 
 AFRAME.registerComponent('markerhandler', {
-	init: function() {
-		// Set up the tick throttling. Will check if marker is active every 500ms
-		this.tick = AFRAME.utils.throttleTick(this.tick, 500, this);
-	},
-	tick: function(t, dt) {
-		
-		if (document.querySelector("#animated-marker").object3D.visible == true && playing == false) {
-			// MARKER IS PRESENT
-			intro.play();
-			playing = true;
-		} else {
-			// MARKER IS HIDDEN, do nothing (up to you)
-		}
 
-	}
-});
+    init: function() {
+        const animatedMarker = document.querySelector("#animated-marker");
+        const aEntity = document.querySelector("#animated-model");
+
+        // every click, we make our model grow in size :)
+        animatedMarker.addEventListener('click', function(ev, target){
+            const intersectedElement = ev && ev.detail && ev.detail.intersectedEl;
+            if (aEntity && intersectedElement === aEntity) {
+                const scale = aEntity.getAttribute('scale');
+                Object.keys(scale).forEach((key) => scale[key] = scale[key] + 1);
+                aEntity.setAttribute('scale', scale);
+            }
+        });
+}});
