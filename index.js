@@ -17,7 +17,7 @@ AFRAME.registerComponent('markerhandler', {
 	},
 	tick: function(t, dt) {
 		
-		if (document.querySelector("#marker").object3D.visible == true && playing == false) {
+		if (document.querySelector("#animated-marker").object3D.visible == true && playing == false) {
 			// MARKER IS PRESENT
 			intro.play();
 			playing = true;
